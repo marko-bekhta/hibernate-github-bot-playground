@@ -11,3 +11,22 @@ jira:
 develocity:
   buildScan:
     addCheck: true
+    tags:
+      - name: "OS"
+				pattern: "Linux"
+      - name: "OS"
+				pattern: "Windows.*"
+				replacement: "Windows"
+      - name: "Java"
+				pattern: "jdk-(.*)"
+				replacement: "$1"
+      - name: "Backend"
+				pattern: "elasticsearch-(.*)"
+				replacement: "es-$1"
+      - name: "Backend"
+				pattern: "lucene"
+      - name: "DB"
+				pattern: "h2|postgres"
+				replacement: "$0"
+      - pattern: "hibernate.search|elasticsearch|main|\\d+.\\d+|PR-\\d+"
+				replacement: "" # Just remove these tags
