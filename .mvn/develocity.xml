@@ -1,6 +1,6 @@
-<gradleEnterprise
-        xmlns="https://www.gradle.com/gradle-enterprise-maven" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="https://www.gradle.com/gradle-enterprise-maven https://www.gradle.com/schema/gradle-enterprise-maven.xsd">
+<develocity
+        xmlns="https://www.gradle.com/develocity-maven" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://www.gradle.com/develocity-maven https://www.gradle.com/schema/develocity-maven.xsd">
     <server>
         <url>https://ge.hibernate.org</url>
         <allowUntrusted>false</allowUntrusted>
@@ -16,12 +16,17 @@
         <!--
         Expression support is documented here: https://docs.gradle.com/enterprise/maven-extension/#expression_support
         -->
+        <publishing>
+            <onlyIf>
+                <![CDATA[authenticated]]>
+            </onlyIf>
+        </publishing>
         <obfuscation>
-          <!-- Don't share ip addresses-->
-          <ipAddresses>#{{'0.0.0.0'}}</ipAddresses>
+            <!-- Don't share ip addresses-->
+            <ipAddresses>#{{'0.0.0.0'}}</ipAddresses>
         </obfuscation>
         <capture>
-          <goalInputFiles>true</goalInputFiles>
+            <fileFingerprints>true</fileFingerprints>
         </capture>
         <!-- https://docs.gradle.com/enterprise/maven-extension/#manual_access_key_configuration -->
         <backgroundBuildScanUpload>#{env['CI'] == null}</backgroundBuildScanUpload>
@@ -38,4 +43,4 @@
             </server>
         </remote>
     </buildCache>
-</gradleEnterprise>
+</develocity>
