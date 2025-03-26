@@ -8,7 +8,8 @@ def withMavenWorkspace(Closure body) {
 					junitPublisher(disabled: true)
 			]) {
 		// These credentials can only push reports.
-		withCredentials([string(credentialsId: 'develocity.commonhaus.dev-access-key-pr')]) {
+		withCredentials([string(credentialsId: 'develocity.commonhaus.dev-access-key-pr',
+				variable: 'DEVELOCITY_ACCESS_KEY')]) {
 			withGradle { // withDevelocity, actually: https://plugins.jenkins.io/gradle/#plugin-content-capturing-build-scans-from-jenkins-pipeline
 				body()
 			}
