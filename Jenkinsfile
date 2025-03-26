@@ -7,8 +7,8 @@ def withMavenWorkspace(Closure body) {
 					artifactsPublisher(disabled: true),
 					junitPublisher(disabled: true)
 			]) {
-		withCredentials([string(credentialsId: 'ge.hibernate.org-access-key',
-				variable: 'GRADLE_ENTERPRISE_ACCESS_KEY')]) {
+		// These credentials can only push reports.
+		withCredentials([string(credentialsId: 'ge.hibernate.org-access-key-pr')]) {
 			withGradle { // withDevelocity, actually: https://plugins.jenkins.io/gradle/#plugin-content-capturing-build-scans-from-jenkins-pipeline
 				body()
 			}
