@@ -7,16 +7,12 @@ def withMavenWorkspace(Closure body) {
 					artifactsPublisher(disabled: true),
 					junitPublisher(disabled: true)
 			]) {
-		def develocityMainCredentialsId = helper.configuration.file?.develocity?.credentials?.main
-		def develocityBaseUrl = helper.configuration.file?.develocity?.url
-		withEnv(["DEVELOCITY_BASE_URL=${develocityBaseUrl}"]) {
-            withCredentials([string(credentialsId: develocityMainCredentialsId,
-                    variable: 'DEVELOCITY_ACCESS_KEY')]) {
-                withGradle { // withDevelocity, actually: https://plugins.jenkins.io/gradle/#plugin-content-capturing-build-scans-from-jenkins-pipeline
-                    body()
-                }
-            }
-        }
+		// These credentials can only push reports.
+		withCredentials([string(credentialsId: 'ge.hibernate.org-access-key-pr')]) {
+			withGradle { // withDevelocity, actually: https://plugins.jenkins.io/gradle/#plugin-content-capturing-build-scans-from-jenkins-pipeline
+				body()
+			}
+		}
 	}
 }
 
