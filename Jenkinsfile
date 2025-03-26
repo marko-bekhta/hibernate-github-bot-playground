@@ -1,3 +1,5 @@
+@Library('hibernate-jenkins-pipeline-helpers') _
+
 def withMavenWorkspace(Closure body) {
 	withMaven(jdk: 'OpenJDK 17 Latest', maven: 'Apache Maven 3.9',
 			mavenLocalRepo: env.WORKSPACE_TMP + '/.m2repository',
@@ -21,6 +23,11 @@ pipeline {
 		disableConcurrentBuilds(abortPrevious: true)
 	}
 	stages {
+		stage('Checks') {
+			steps {
+				requireApprovalForPullRequest 'hibernate'
+			}
+		}
 		stage('Default build') {
 			agent {
 				label 'Worker&&Containers'
